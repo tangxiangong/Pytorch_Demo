@@ -33,4 +33,5 @@ class MLP(nn.Module):
 device = torch.device('cuda:0')
 net = MLP().to(device)
 optimizer = optim.SGD(net.parameters(), lr=learning_rate)
-criteon = nn.CrossEntropyLoss().to(device)
+criteon = nn.CrossEntropyLoss()
+
