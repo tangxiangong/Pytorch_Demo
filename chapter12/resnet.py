@@ -24,18 +24,19 @@ class ResBlock(nn.Module):
 
         return out
 
+
 class ResNet18(nn.Module):
     def __init__(self, num_class):
         super(ResNet18, self).__init__()
         self.conv1 = nn.Sequential(
-            nn.Conv2d(3,16,kernel_size=3, stride=3, padding=0),
+            nn.Conv2d(3, 16, kernel_size=3, stride=3, padding=0),
             nn.BatchNorm2d(16)
         )
         self.block1 = ResBlock(16, 32, stride=3)
         self.block2 = ResBlock(32, 64, stride=3)
         self.block3 = ResBlock(64, 128, stride=2)
-        self.block4 = ResBlock(126, 256, stride=2)
-        self.output = nn.Linear(256*2*2, num_class)
+        self.block4 = ResBlock(128, 256, stride=2)
+        self.output = nn.Linear(256 * 3 * 3, num_class)
 
     def forward(self, x):
         out1 = F.relu(self.conv1(x))
@@ -47,6 +48,3 @@ class ResNet18(nn.Module):
         out = self.output(out6)
 
         return out
-
-
-
